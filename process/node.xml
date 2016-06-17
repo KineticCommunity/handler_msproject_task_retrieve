@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taskDefinition id="msproject_project_task_retrieve" name="MSProject Project Task Retrieve" schema_version="1.0" version="1">
+    <author>support@kineticdata.com</author>
+    <description>This handler retrieves a Task based on the provided information.</description>
+    <helpurl>http://ktc.kineticdata.com/handler/msproject_project_task_retrieve/1</helpurl>
+    <visible>true</visible>
+    <deferrable>false</deferrable>
+    <parameters>
+        <parameter id="project_id" label="Project Id" required="true"
+            tooltip="Id of the project to retrieve data from."/>
+        <parameter id="name" label="Name" required="true"
+            tooltip="Name of the task to retrieve."/>
+        <parameter id="has_parent" label="Has Parent?" required="true" menu="True,False"
+            tooltip="True if attempting to retrieve a top level comment."/>
+        <parameter id="parent_name" label="Parent Name" required="false" 
+            dependsOnId="has_parent" dependsOnValue="True"
+            tooltip="Name of the Parent task."/>
+        <parameter id="parent_id" label="Parent Id" required="false"
+            dependsOnId="has_parent" dependsOnValue="True"
+            tooltip="Id of the Parent task."/>
+    </parameters>
+    <handler name="msproject_project_task_retrieve" version="1">
+        <infos>
+            <info name="username">&lt;%= @info['username'] %&gt;</info>
+            <info name="password">&lt;%= @info['password'] %&gt;</info>
+            <info name="ms_project_location">&lt;%= @info['ms_project_location'] %&gt;</info>
+            <info name="enable_debug_logging">&lt;%= @info['enable_debug_logging'] %&gt;</info>
+        </infos>
+        <parameters>
+            <parameter name="project_id">&lt;%= @parameters['project_id'] %&gt;</parameter>
+            <parameter name="name">&lt;%= @parameters['name'] %&gt;</parameter>
+            <parameter name="has_parent">&lt;%= @parameters['has_parent'] %&gt;</parameter>
+            <parameter name="parent_name">&lt;%= @parameters['parent_name'] %&gt;</parameter>
+            <parameter name="parent_id">&lt;%= @parameters['parent_id'] %&gt;</parameter>
+        </parameters>
+    </handler>
+    <results format="xml">
+        <result name="task_id"/>
+    </results>
+</taskDefinition>
